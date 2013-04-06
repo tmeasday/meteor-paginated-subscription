@@ -36,7 +36,7 @@ The important part of all this is the `handle`, which has the following API:
 
  - `handle.loaded()` - how many documents are currently loaded via the sub
  - `handle.limit()` - how many have we asked for
- - `handle.loading()` - are we waiting on the server right now
+ - `handle.ready()` - are we waiting on the server right now?
  - `handle.loadNextPage()` - fetch the next page of results
 
 The first three functions are reactive and thus can be used to correctly display an 'infinite-scroll' like list of results. Please see the [telescope](https://github.com/SachaG/Telescope/blob/master/client/views/posts/posts_list.js) project for an example of real-world usage.

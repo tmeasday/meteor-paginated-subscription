@@ -16,8 +16,13 @@ PaginatedSubscriptionHandle.prototype.limit = function() {
   return this._limit;
 }
 
+PaginatedSubscriptionHandle.prototype.ready = function() {
+  return this.loaded() === this.limit();
+}
+
+// deprecated
 PaginatedSubscriptionHandle.prototype.loading = function() {
-  return this.loaded() < this.limit();
+  return ! this.ready();
 }
 
 PaginatedSubscriptionHandle.prototype.loadNextPage = function() {
