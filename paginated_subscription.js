@@ -7,12 +7,12 @@ PaginatedSubscriptionHandle = function(perPage) {
 }
 
 PaginatedSubscriptionHandle.prototype.loaded = function() {
-  Deps.depend(this._loadedListeners);
+  this._loadedListeners.depend();
   return this._loaded;
 }
 
 PaginatedSubscriptionHandle.prototype.limit = function() {
-  Deps.depend(this._limitListeners);
+  this._limitListeners.depend();
   return this._limit;
 }
 
@@ -35,6 +35,11 @@ PaginatedSubscriptionHandle.prototype.done = function() {
   // if they do we need to increase loaded by perPage, not set it to limit
   this._loaded = this._limit;
   this._loadedListeners.changed();
+}
+
+PaginatedSubscriptionHandle.prototype.reset = function() {
+  this._limit = this.perPage;
+  this._limitListeners.changed();
 }
 
 
