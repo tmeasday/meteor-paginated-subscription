@@ -31,8 +31,6 @@ PaginatedSubscriptionHandle.prototype.loadNextPage = function() {
 }
 
 PaginatedSubscriptionHandle.prototype.done = function() {
-  // XXX: check if subs that are canceled before they are ready ever fire ready?
-  // if they do we need to increase loaded by perPage, not set it to limit
   this._loaded = this._limit;
   this._loadedListeners.changed();
 }
@@ -50,16 +48,23 @@ Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
   
   var handle = new PaginatedSubscriptionHandle(perPage);
   
-  Meteor.autorun(function() {
+  var argAutorun = Meteor.autorun(function() {
     var ourArgs = _.map(args, function(arg) {
       return _.isFunction(arg) ? arg() : arg;
     });
     
-    var subHandle = Meteor.subscribe.apply(this, ourArgs.concat([
-      handle.limit(), function() { handle.done(); }
-    ]));
-    handle.stop = subHandle.stop;
+    var subHandle = Meteor.subscribe.apply(this, ourArgs.concat([handle.limit()]));
+    
+    // whenever the sub becomes ready, we are done. This may happen right away
+    // if we are re-subscribing to an already ready subscription.
+    Meteor.autorun(function() {
+      if (subHandle.ready())
+        handle.done();
+    });
   });
+  
+  // this will stop the subHandle, and the done autorun
+  handle.stop = argAutorun.stop;
   
   return handle;
 }

@@ -41,18 +41,12 @@ The important part of all this is the `handle`, which has the following API:
 
 The first three functions are reactive and thus can be used to correctly display an 'infinite-scroll' like list of results. Please see the [telescope](https://github.com/SachaG/Telescope/blob/master/client/views/posts/posts_list.js) project for an example of real-world usage.
 
-## Caveats / Limitations
-
-The most important caveat is that the subscription shouldn't be used from within an `autorun` block. The reason for this is that although the three handle functions are reactive, there's nothing making the handle itself reactive and so your templates will be relying on reactive functions that no longer exist if the handle changes.
-
-If your subscriptions arguments are going to reactively change, simply pass in functions, and the paginated sub will evaluate them within it's own internal `autorun` block.
-
 ## TODO
 
 Contributions are heavily encouraged. The obvious things to fix are:
 
-1. Figure out a good way to imitate what `subscribe` does so we can avoid the "pass in functions" hack.
-2. Figure out a way to get a `onReady` callback (the obvious way is to solve 1.)
-3. Do actual "pagination" rather than "infinite scroll" -- i.e. have an option to pass around an offset as well as limit.
+1. Allow an `onReady` callback
+2. Do actual "pagination" rather than "infinite scroll" -- i.e. have an option to pass around an offset as well as limit.
+3. Tests, tests, tests
 
 Please contact me if you want to have a go at these and I'll be happy to help in what ways I can.
