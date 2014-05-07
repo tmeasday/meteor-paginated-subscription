@@ -19,10 +19,10 @@ This package makes available a single function `Meteor.subscribeWithPagination`.
 var handle = Meteor.subscribeWithPagination('posts', 10);
 ```
 
-The arguments are as usual to `Meteor.subscribe`, with two exceptions:
+The arguments are as usual to `Meteor.subscribe`, with an exception:
 
 1. The last argument must be a number, indicating the number of documents per page.
-2. There's no support for a `onReady` callback, see TODO below.
+This can be followed by callback functions in style of `Meteor.subscribe`.
 
 The paginated subscription expects you to have a publication setup, as normal, which expects as a final argument the *current* number of documents to display (which will be incremented, in a infinite scroll fashion):
 
@@ -45,8 +45,7 @@ The first three functions are reactive and thus can be used to correctly display
 
 Contributions are heavily encouraged. The obvious things to fix are:
 
-1. Allow an `onReady` callback
-2. Do actual "pagination" rather than "infinite scroll" -- i.e. have an option to pass around an offset as well as limit.
-3. Tests, tests, tests
+1. Do actual "pagination" rather than "infinite scroll" -- i.e. have an option to pass around an offset as well as limit.
+2. Tests, tests, tests
 
 Please contact me if you want to have a go at these and I'll be happy to help in what ways I can.

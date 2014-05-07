@@ -41,10 +41,16 @@ PaginatedSubscriptionHandle.prototype.reset = function() {
 }
 
 
-// XXX: deal with last argument being a callback
 Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
   var args = Array.prototype.slice.call(arguments, 0);
-  var perPage = args.pop();
+  var lastArg = args.pop();
+  var perPage, cb = null;
+  if (_.isFunction(lastArg) || _.isObject(lastArg)) {
+    cb = lastArg; 
+    perPage = args.pop();
+  } else {
+    perPage = lastArg;
+  }
   
   var handle = new PaginatedSubscriptionHandle(perPage);
   
@@ -52,8 +58,8 @@ Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
     var ourArgs = _.map(args, function(arg) {
       return _.isFunction(arg) ? arg() : arg;
     });
-    
-    var subHandle = Meteor.subscribe.apply(this, ourArgs.concat([handle.limit()]));
+   
+    var subHandle = Meteor.subscribe.apply(this, ourArgs.concat([handle.limit(), cb]));
     
     // whenever the sub becomes ready, we are done. This may happen right away
     // if we are re-subscribing to an already ready subscription.
