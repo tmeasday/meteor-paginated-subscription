@@ -70,7 +70,7 @@ Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
   });
   
   // this will stop the subHandle, and the done autorun
-  handle.stop = argAutorun.stop;
+  handle.stop = _.bind(argAutorun.stop, argAutorun);
   
   return handle;
 }
