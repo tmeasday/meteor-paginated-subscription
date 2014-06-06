@@ -49,3 +49,7 @@ Contributions are heavily encouraged. The obvious things to fix are:
 2. Tests, tests, tests
 
 Please contact me if you want to have a go at these and I'll be happy to help in what ways I can.
+
+## LICENSE
+
+MIT (c) Tom Coleman
