@@ -61,7 +61,6 @@ Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
    
     ourArgs.push(handle.limit());
     cb && ourArgs.push(cb);
-    console.log(ourArgs)
     var subHandle = Meteor.subscribe.apply(this, ourArgs);
     
     // whenever the sub becomes ready, we are done. This may happen right away
