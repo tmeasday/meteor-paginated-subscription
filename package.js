@@ -1,9 +1,10 @@
 Package.describe({
+  name: 'tmeasday:paginated-subscription',
   summary: "A paginated subscription; views a subset of a subscription",
-  version: "0.2.2",
+  version: "0.2.3",
   githubUrl: "https://github.com/tmeasday/meteor-paginated-subscription.git"
 });
 
 Package.on_use(function(api) {
-  api.add_files('paginated_subscrition.js', 'client');
+  api.addFiles('paginated_subscription.js', 'client');
 });
