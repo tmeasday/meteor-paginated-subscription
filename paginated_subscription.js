@@ -44,7 +44,7 @@ PaginatedSubscriptionHandle.prototype.reset = function() {
 Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
   var args = Array.prototype.slice.call(arguments, 0);
   var lastArg = args.pop();
-  var perPage, cb = null;
+  var perPage, cb;
   if (_.isFunction(lastArg) || _.isObject(lastArg)) {
     cb = lastArg; 
     perPage = args.pop();
@@ -59,7 +59,10 @@ Meteor.subscribeWithPagination = function (/*name, arguments, perPage */) {
       return _.isFunction(arg) ? arg() : arg;
     });
    
-    var subHandle = Meteor.subscribe.apply(this, ourArgs.concat([handle.limit(), cb]));
+    ourArgs.push(handle.limit());
+    cb && ourArgs.push(cb);
+    console.log(ourArgs)
+    var subHandle = Meteor.subscribe.apply(this, ourArgs);
     
     // whenever the sub becomes ready, we are done. This may happen right away
     // if we are re-subscribing to an already ready subscription.
