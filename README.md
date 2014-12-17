@@ -1,3 +1,8 @@
+# THIS PACKAGE HAS MOVED
+
+[percolate:paginated-subscription](https://atmospherejs.com/percolate/paginated-subscription)
+
+
 # Meteor Paginated Subscription
 
 This package is an experiment that adds pagination to Meteor's standard subscriptions. It's a byproduct of the [Telescope project](http://telesc.pe).
